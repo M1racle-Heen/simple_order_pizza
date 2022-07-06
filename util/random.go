@@ -55,3 +55,24 @@ func RandomAddress() string {
 func RandomEmail() string {
 	return fmt.Sprintf("%s@email.com", RandomString(6))
 }
+
+func RandomStatus() string {
+	currencies := []string{"Delivered", "Waiting", "In a way", "Hold"}
+	n := len(currencies)
+
+	return currencies[rand.Intn(n)]
+}
+
+func RandomPizzaType() string {
+	currencies := []string{"Cheese", "Veggie", "Pepperoni", "Meat", "Margherita", "BBQ Chicken", "Hawaiian", "Buffalo"}
+	n := len(currencies)
+
+	return currencies[rand.Intn(n)]
+}
+
+func RandomPaymentStatus() string {
+	currencies := []string{"Paid", "Not Paid Yet"}
+	n := len(currencies)
+
+	return currencies[rand.Intn(n)]
+}

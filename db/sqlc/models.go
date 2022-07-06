@@ -5,7 +5,6 @@
 package db
 
 import (
-	"database/sql"
 	"time"
 )
 
@@ -25,11 +24,11 @@ type Order struct {
 }
 
 type Payment struct {
-	ID            int64         `json:"id"`
-	PizzaID       int64         `json:"pizza_id"`
-	CustomerID    int64         `json:"customer_id"`
-	PaymentStatus string        `json:"payment_status"`
-	Bill          sql.NullInt64 `json:"Bill"`
+	ID            int64  `json:"id"`
+	PizzaID       int64  `json:"pizza_id"`
+	CustomerID    int64  `json:"customer_id"`
+	PaymentStatus string `json:"payment_status"`
+	Bill          int64  `json:"bill"`
 }
 
 type Pizza struct {

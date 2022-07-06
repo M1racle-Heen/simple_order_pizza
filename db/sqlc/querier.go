@@ -10,10 +10,19 @@ import (
 
 type Querier interface {
 	CreateCustomer(ctx context.Context, arg CreateCustomerParams) (Customer, error)
+	CreateOrder(ctx context.Context, arg CreateOrderParams) (Order, error)
+	CreatePayment(ctx context.Context, arg CreatePaymentParams) (Payment, error)
+	CreatePizza(ctx context.Context, arg CreatePizzaParams) (Pizza, error)
 	DeleteCustomer(ctx context.Context, id int64) error
 	GetCustomer(ctx context.Context, id int64) (Customer, error)
 	GetCustomerForUpdate(ctx context.Context, id int64) (Customer, error)
+	GetOrder(ctx context.Context, id int64) (Order, error)
+	GetPayment(ctx context.Context, id int64) (Payment, error)
+	GetPizza(ctx context.Context, id int64) (Pizza, error)
 	ListCustomers(ctx context.Context, arg ListCustomersParams) ([]Customer, error)
+	ListOrders(ctx context.Context, arg ListOrdersParams) ([]Order, error)
+	ListPayments(ctx context.Context, arg ListPaymentsParams) ([]Payment, error)
+	ListPizzas(ctx context.Context, arg ListPizzasParams) ([]Pizza, error)
 	UpdateCustomerAddress(ctx context.Context, arg UpdateCustomerAddressParams) (Customer, error)
 }
 

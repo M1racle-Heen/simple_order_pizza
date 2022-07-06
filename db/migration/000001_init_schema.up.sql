@@ -26,7 +26,7 @@ CREATE TABLE "payment" (
   "pizza_id" bigint NOT NULL,
   "customer_id" bigint NOT NULL,
   "payment_status" varchar NOT NULL DEFAULT 'Not Paid',
-  "Bill" bigint
+  "bill" bigint NOT NULL
 );
 
 CREATE INDEX ON "orders" ("customer_id");
