@@ -16,5 +16,7 @@ migratedown:
 sqlc:
 	docker run --rm -v "$(CURDIR):/src" -w //src kjconroy/sqlc generate
 
+server:
+	go run main.go
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc server
