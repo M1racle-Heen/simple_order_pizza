@@ -1,0 +1,4 @@
+make: Entering directory 'c:/Users/Said/simple_order_pizza'
+docker run --name postgres_pizza -p 5434:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:14.4-alpine  
+make: Leaving directory 'c:/Users/Said/simple_order_pizza'
+ 
