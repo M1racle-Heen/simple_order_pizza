@@ -1,6 +1,7 @@
 package api
 
 import (
+	"database/sql"
 	"net/http"
 
 	db "github.com/M1racle-Heen/simple_order_pizza/db/sqlc"
@@ -10,7 +11,7 @@ import (
 type createCustomerRequest struct {
 	FullName string `json:"full_name" binding:"required"`
 	Email    string `json:"email" binding:"required,email"`
-	Phone    int64  `json:"phone" binding:"required"`
+	Phone    int64  `json:"phone" binding:"required,min=10000000,max=99999999"`
 	Address  string `json:"address" binding:"required"`
 }
 
@@ -36,4 +37,27 @@ func (server *Server) createCustomer(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, account)
+}
+
+type getCustomerRequest struct {
+	ID int64 `uri:"id" binding:"required,min=1"`
+}
+
+func (server *Server) getCustomer(ctx *gin.Context) {
+	var req getCustomerRequest
+	if err := ctx.ShouldBindUri(&req); err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	customer, err := server.store.GetCustomer(ctx, req.ID)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return
+		}
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+	ctx.JSON(http.StatusOK, customer)
 }

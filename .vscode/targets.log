@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Jul 06 20:48:16 2022
+# Make data base, printed on Thu Jul 07 16:36:54 2022
 
 # Variables
 
@@ -25,7 +25,7 @@ VBOX_MSI_INSTALL_PATH = D:\VBox\
 # environment
 LOCALAPPDATA = C:\Users\Said\AppData\Local
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-be2d2c0e-757c-4487-a42f-e2522c32a507-sock
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-3daebdb2-998d-4480-a56b-be47f6d2ea50-sock
 # environment
 VSCODE_CWD = C:\Users\Said\AppData\Local\Programs\Microsoft VS Code
 # environment
@@ -43,7 +43,7 @@ GOPATH = C:\Users\Said\go
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_13820_UNCXPMQBZEEPGOFC
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_10484_QORJKRTNPLEODMAK
 # environment
 VS160COMCOMNTOOLS = C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\
 # environment
@@ -83,8 +83,7 @@ VSCODE_PIPE_LOGGING = true
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
-G 
-OLAND = C:\Users\Said\GoLand 2021.3.2\bin;
+GOLAND = C:\Users\Said\GoLand 2021.3.2\bin;
 # automatic
 *D = $(patsubst %/,%,$(patsubst %\,%,$(dir $*)))
 # environment
@@ -106,7 +105,7 @@ PT8HOME = D:\Cisco Packet Tracer 8.1.1
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 13820
+VSCODE_PID = 10484
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -222,8 +221,7 @@ SESSIONNAME = Console
 # environment
 PROCESSOR_REVISION = 8e0c
 # environment
-PROCESSOR_I 
-DENTIFIER = Intel64 Family 6 Model 142 Stepping 12, GenuineIntel
+PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 142 Stepping 12, GenuineIntel
 # variable set hash-table stats:
 # Load=105/1024=10%, Rehash=0, Collisions=10/132=8%
 
@@ -233,9 +231,9 @@ DENTIFIER = Intel64 Family 6 Model 142 Stepping 12, GenuineIntel
 
 # Directories
 
-# . (key c:/Users/Said/simple_order_pizza, mtime 1657108980): 13 files, no impossibilities.
+# . (key c:/Users/Said/simple_order_pizza, mtime 1657119999): 16 files, no impossibilities.
 
-# 13 files, no impossibilities in 1 directories.
+# 16 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -254,7 +252,7 @@ migratedown:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-06 12:44:28
+#  Last modified 2022-07-06 21:08:14
 #  File has been updated.
 #  Successfully updated.
 
@@ -266,12 +264,21 @@ dropdb:
 #  recipe to execute (from 'Makefile', line 8):
 	docker exec -it postgres_pizza dropdb pizza_order
 
+server:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 20):
+	go run main.go
+
 migrateup:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 11):
+#  recipe to e 
+xecute (from 'Makefile', line 11):
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5434/pizza_order?sslmode=disable" -verbose up
 
 # Not a target:
@@ -311,25 +318,25 @@ createdb:
 #  recipe to execute (from 'Makefile', line 5):
 	docker exec -it postgres_pizza createdb --username=root --owner=root pizza_order
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc server
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=11/1024=1%, Rehash=0, Collisions=0/27=0%
+# Load=12/1024=1%, Rehash=0, Collisions=0/29=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 23 / storage = 172 B / avg = 7 B
-# current buf: size = 8174 B / used = 172 B / count = 23 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 27 / storage = 201 B / avg = 7 B
+# current buf: size = 8174 B / used = 201 B / count = 27 / avg = 7 B
 
-# strcache performance: lookups = 40 / hit rate = 42%
+# strcache performance: lookups = 46 / hit rate = 41%
 # hash-table stats:
-# Load=23/8192=0%, Rehash=0, Collisions=0/40=0%
-# Finished Make data base on Wed Jul 06 20:48:16 2022
+# Load=27/8192=0%, Rehash=0, Collisions=0/46=0%
+# Finished Make data base on Thu Jul 07 16:36:54 2022
 
  
