@@ -16,7 +16,13 @@ migratedown:
 sqlc:
 	docker run --rm -v "$(CURDIR):/src" -w //src kjconroy/sqlc generate
 
+test:
+	go test -v -cover ./...
+
 server:
 	go run main.go
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc server
+mock:
+	mockgen -package mockdb -destination db/mock/store.go github.com/M1racle-Heen/simple_order_pizza/db/sqlc Store
+
+.PHONY: postgres createdb dropdb migrateup migratedown test sqlc server mock
