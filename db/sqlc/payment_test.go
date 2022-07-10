@@ -4,16 +4,29 @@ import (
 	"context"
 	"testing"
 
-	"github.com/M1racle-Heen/simple_order_pizza/util"
 	"github.com/stretchr/testify/require"
 )
 
 func createRandomPayment(t *testing.T, pizza Pizza, customer Customer) Payment {
+	pizzaPrice, err := testQueries.GetPizza(context.Background(), pizza.ID)
+	require.NoError(t, err)
+	require.NotEmpty(t, pizzaPrice)
+
+	status, err := testQueries.GetOrder(context.Background(), pizzaPrice.OrderID)
+	require.NoError(t, err)
+	require.NotEmpty(t, status)
+	isHold := ""
+	if status.Status == "Hold" {
+		isHold = "Not Paid Yet"
+	} else {
+		isHold = "Paid"
+	}
+
 	arg := CreatePaymentParams{
 		PizzaID:       pizza.ID,
 		CustomerID:    customer.ID,
-		PaymentStatus: util.RandomPaymentStatus(),
-		Bill:          util.RandomInt(200, 500),
+		PaymentStatus: isHold,
+		Bill:          pizzaPrice.Price,
 	}
 
 	payment, err := testQueries.CreatePayment(context.Background(), arg)

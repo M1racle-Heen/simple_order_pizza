@@ -27,6 +27,8 @@ func NewServer(store db.Store) *Server {
 	router.GET("/pizzas/:id", server.getPizza)
 	router.GET("/pizzas", server.listPizzas)
 
+	router.POST("/payments", server.createPayment)
+	router.GET("/payments/:id", server.getPayment)
 	server.router = router
 	return server
 }

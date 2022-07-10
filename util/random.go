@@ -57,22 +57,22 @@ func RandomEmail() string {
 }
 
 func RandomStatus() string {
-	currencies := []string{"Delivered", "Waiting", "In a way", "Hold"}
-	n := len(currencies)
+	status := []string{"Delivered", "Hold"}
+	n := len(status)
 
-	return currencies[rand.Intn(n)]
+	return status[rand.Intn(n)]
 }
 
 func RandomPizzaType() string {
-	currencies := []string{"Cheese", "Veggie", "Pepperoni", "Meat", "Margherita", "BBQ Chicken", "Hawaiian", "Buffalo"}
-	n := len(currencies)
+	p_type := []string{"Cheese", "Veggie", "Pepperoni", "Meat", "Margherita", "Hawaiian", "Buffalo"}
+	n := len(p_type)
 
-	return currencies[rand.Intn(n)]
+	return p_type[rand.Intn(n)]
 }
 
 func RandomPaymentStatus() string {
-	currencies := []string{"Paid", "Not Paid Yet"}
-	n := len(currencies)
+	payment := []string{"Paid", "Not Paid Yet"}
+	n := len(payment)
 
-	return currencies[rand.Intn(n)]
+	return payment[rand.Intn(n)]
 }
