@@ -65,20 +65,19 @@ func (q *Queries) GetPizza(ctx context.Context, id int64) (Pizza, error) {
 
 const listPizzas = `-- name: ListPizzas :many
 SELECT id, order_id, price, pizza_type, pizza_quant FROM pizza
-WHERE order_id = $1
+WHERE order_id IS NOT NULL
 ORDER BY id
-LIMIT $2
-OFFSET $3
+LIMIT $1
+OFFSET $2
 `
 
 type ListPizzasParams struct {
-	OrderID int64 `json:"order_id"`
-	Limit   int32 `json:"limit"`
-	Offset  int32 `json:"offset"`
+	Limit  int32 `json:"limit"`
+	Offset int32 `json:"offset"`
 }
 
 func (q *Queries) ListPizzas(ctx context.Context, arg ListPizzasParams) ([]Pizza, error) {
-	rows, err := q.db.QueryContext(ctx, listPizzas, arg.OrderID, arg.Limit, arg.Offset)
+	rows, err := q.db.QueryContext(ctx, listPizzas, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}

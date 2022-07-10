@@ -14,8 +14,7 @@ WHERE id = $1 LIMIT 1;
 
 -- name: ListPayments :many
 SELECT * FROM payment
-WHERE pizza_id = $1
-OR customer_id = $2
+WHERE pizza_id IS NOT NULL
 ORDER BY id
-LIMIT $3
-OFFSET $4;
+LIMIT $1
+OFFSET $2;

@@ -12,7 +12,7 @@ WHERE id = $1 LIMIT 1;
 
 -- name: ListOrders :many
 SELECT * FROM orders
-WHERE customer_id = $1
+WHERE customer_id IS NOT NULL
 ORDER BY id
-LIMIT $2
-OFFSET $3;
+LIMIT $1
+OFFSET $2;

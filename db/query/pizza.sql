@@ -14,7 +14,7 @@ WHERE id = $1 LIMIT 1;
 
 -- name: ListPizzas :many
 SELECT * FROM pizza
-WHERE order_id = $1
+WHERE order_id IS NOT NULL
 ORDER BY id
-LIMIT $2
-OFFSET $3;
+LIMIT $1
+OFFSET $2;

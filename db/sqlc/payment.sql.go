@@ -65,27 +65,19 @@ func (q *Queries) GetPayment(ctx context.Context, id int64) (Payment, error) {
 
 const listPayments = `-- name: ListPayments :many
 SELECT id, pizza_id, customer_id, payment_status, bill FROM payment
-WHERE pizza_id = $1
-OR customer_id = $2
+WHERE pizza_id IS NOT NULL
 ORDER BY id
-LIMIT $3
-OFFSET $4
+LIMIT $1
+OFFSET $2
 `
 
 type ListPaymentsParams struct {
-	PizzaID    int64 `json:"pizza_id"`
-	CustomerID int64 `json:"customer_id"`
-	Limit      int32 `json:"limit"`
-	Offset     int32 `json:"offset"`
+	Limit  int32 `json:"limit"`
+	Offset int32 `json:"offset"`
 }
 
 func (q *Queries) ListPayments(ctx context.Context, arg ListPaymentsParams) ([]Payment, error) {
-	rows, err := q.db.QueryContext(ctx, listPayments,
-		arg.PizzaID,
-		arg.CustomerID,
-		arg.Limit,
-		arg.Offset,
-	)
+	rows, err := q.db.QueryContext(ctx, listPayments, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}

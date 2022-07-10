@@ -53,9 +53,8 @@ func TestListOrders(t *testing.T) {
 	}
 
 	arg := ListOrdersParams{
-		CustomerID: customer.ID,
-		Limit:      5,
-		Offset:     5,
+		Limit:  5,
+		Offset: 5,
 	}
 
 	orders, err := testQueries.ListOrders(context.Background(), arg)
@@ -64,6 +63,5 @@ func TestListOrders(t *testing.T) {
 
 	for _, order := range orders {
 		require.NotEmpty(t, order)
-		require.Equal(t, arg.CustomerID, order.CustomerID)
 	}
 }

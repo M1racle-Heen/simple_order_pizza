@@ -66,10 +66,8 @@ func TestListPayments(t *testing.T) {
 	}
 
 	arg := ListPaymentsParams{
-		PizzaID:    pizza1.ID,
-		CustomerID: customer1.ID,
-		Limit:      5,
-		Offset:     5,
+		Limit:  5,
+		Offset: 5,
 	}
 
 	payments, err := testQueries.ListPayments(context.Background(), arg)
@@ -79,8 +77,6 @@ func TestListPayments(t *testing.T) {
 
 	for _, payment := range payments {
 		require.NotEmpty(t, payment)
-		require.Equal(t, arg.PizzaID, pizza1.ID)
-		require.Equal(t, arg.CustomerID, customer1.ID)
 
 	}
 }
