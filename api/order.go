@@ -10,7 +10,7 @@ import (
 
 type createOrderRequest struct {
 	CustomerID int64  `json:"customer_id" binding:"required,min=1"`
-	Status     string `json:"status" binding:"required,oneof=Hold"`
+	Status     string `json:"status" binding:"required,oneof=Hold Delivered"`
 }
 
 func (server *Server) createOrder(ctx *gin.Context) {
