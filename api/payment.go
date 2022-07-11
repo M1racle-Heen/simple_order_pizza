@@ -69,3 +69,90 @@ func (server *Server) getPayment(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, payment)
 }
+
+type listPaymentsRequest struct {
+	PageID   int32 `form:"page_id" binding:"required,min=1"`
+	PageSize int32 `form:"page_size" binding:"required,min=5,max=10"`
+}
+
+func (server *Server) listPayments(ctx *gin.Context) {
+	var req listPaymentsRequest
+	if err := ctx.ShouldBindQuery(&req); err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	arg := db.ListPaymentsParams{
+		Limit:  req.PageSize,
+		Offset: (req.PageID - 1) * req.PageSize,
+	}
+
+	payments, err := server.store.ListPayments(ctx, arg)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, payments)
+}
+
+type UpdatePaymentStatusRequest struct {
+	ID            int64  `json:"id" binding:"required,min=1"`
+	PaymentStatus string `json:"status" binding:"required,oneof=Paid NotPaid"`
+}
+
+func (server *Server) updatePaymentStatus(ctx *gin.Context) {
+	var req UpdatePaymentStatusRequest
+	if err := ctx.ShouldBindJSON(&req); err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	arg := db.UpdatePaymentStatusParams{
+		ID:            req.ID,
+		PaymentStatus: req.PaymentStatus,
+	}
+
+	payment, err := server.store.GetPayment(ctx, req.ID)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	pizza, err := server.store.GetPizza(ctx, payment.PizzaID)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	order, err := server.store.GetOrder(ctx, pizza.OrderID)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	if req.PaymentStatus == "Paid" {
+		order.Status = "Delivered"
+	} else {
+		order.Status = "Hold"
+	}
+
+	arg1 := db.UpdateOrderStatusParams{
+		ID:     order.ID,
+		Status: order.Status,
+	}
+
+	order, err = server.store.UpdateOrderStatus(ctx, arg1)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	status, err := server.store.UpdatePaymentStatus(ctx, arg)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, status)
+}

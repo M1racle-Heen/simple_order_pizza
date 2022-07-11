@@ -84,3 +84,27 @@ func (server *Server) listOrders(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, orders)
 }
+
+type UpdateOrderStatusRequest struct {
+	ID     int64  `json:"id" binding:"required,min=1"`
+	Status string `json:"status" binding:"required,oneof=Delivered Hold"`
+}
+
+func (server *Server) updateOrderStatus(ctx *gin.Context) {
+	var req UpdateOrderStatusRequest
+	if err := ctx.ShouldBindJSON(&req); err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+	arg := db.UpdateOrderStatusParams{
+		ID:     req.ID,
+		Status: req.Status,
+	}
+	status, err := server.store.UpdateOrderStatus(ctx, arg)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+	ctx.JSON(http.StatusOK, status)
+
+}

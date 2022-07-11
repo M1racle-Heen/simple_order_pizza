@@ -71,7 +71,7 @@ func RandomPizzaType() string {
 }
 
 func RandomPaymentStatus() string {
-	payment := []string{"Paid", "Not Paid Yet"}
+	payment := []string{"Paid", "NotPaid"}
 	n := len(payment)
 
 	return payment[rand.Intn(n)]

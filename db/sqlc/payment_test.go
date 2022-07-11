@@ -17,7 +17,7 @@ func createRandomPayment(t *testing.T, pizza Pizza, customer Customer) Payment {
 	require.NotEmpty(t, status)
 	isHold := ""
 	if status.Status == "Hold" {
-		isHold = "Not Paid Yet"
+		isHold = "NotPaid"
 	} else {
 		isHold = "Paid"
 	}
