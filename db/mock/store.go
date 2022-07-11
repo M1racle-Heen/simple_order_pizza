@@ -258,3 +258,33 @@ func (mr *MockStoreMockRecorder) UpdateCustomerAddress(arg0, arg1 interface{}) *
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateCustomerAddress", reflect.TypeOf((*MockStore)(nil).UpdateCustomerAddress), arg0, arg1)
 }
+
+// UpdateOrderStatus mocks base method.
+func (m *MockStore) UpdateOrderStatus(arg0 context.Context, arg1 db.UpdateOrderStatusParams) (db.Order, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateOrderStatus", arg0, arg1)
+	ret0, _ := ret[0].(db.Order)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateOrderStatus indicates an expected call of UpdateOrderStatus.
+func (mr *MockStoreMockRecorder) UpdateOrderStatus(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateOrderStatus", reflect.TypeOf((*MockStore)(nil).UpdateOrderStatus), arg0, arg1)
+}
+
+// UpdatePaymentStatus mocks base method.
+func (m *MockStore) UpdatePaymentStatus(arg0 context.Context, arg1 db.UpdatePaymentStatusParams) (db.Payment, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdatePaymentStatus", arg0, arg1)
+	ret0, _ := ret[0].(db.Payment)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdatePaymentStatus indicates an expected call of UpdatePaymentStatus.
+func (mr *MockStoreMockRecorder) UpdatePaymentStatus(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdatePaymentStatus", reflect.TypeOf((*MockStore)(nil).UpdatePaymentStatus), arg0, arg1)
+}

@@ -16,3 +16,9 @@ WHERE customer_id IS NOT NULL
 ORDER BY id
 LIMIT $1
 OFFSET $2;
+
+-- name: UpdateOrderStatus :one
+UPDATE orders
+SET status = $2
+WHERE id = $1
+RETURNING *;

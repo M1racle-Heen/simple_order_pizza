@@ -24,6 +24,8 @@ type Querier interface {
 	ListPayments(ctx context.Context, arg ListPaymentsParams) ([]Payment, error)
 	ListPizzas(ctx context.Context, arg ListPizzasParams) ([]Pizza, error)
 	UpdateCustomerAddress(ctx context.Context, arg UpdateCustomerAddressParams) (Customer, error)
+	UpdateOrderStatus(ctx context.Context, arg UpdateOrderStatusParams) (Order, error)
+	UpdatePaymentStatus(ctx context.Context, arg UpdatePaymentStatusParams) (Payment, error)
 }
 
 var _ Querier = (*Queries)(nil)

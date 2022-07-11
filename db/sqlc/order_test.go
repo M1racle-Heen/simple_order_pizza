@@ -65,3 +65,22 @@ func TestListOrders(t *testing.T) {
 		require.NotEmpty(t, order)
 	}
 }
+
+func TestUpdateOrders(t *testing.T) {
+	customer := createRandomCustomer(t)
+	order := createRandomOrder(t, customer)
+	arg := UpdateOrderStatusParams{
+		ID:     order.ID,
+		Status: order.Status,
+	}
+
+	order1, err := testQueries.UpdateOrderStatus(context.Background(), arg)
+	require.NoError(t, err)
+	require.NotEmpty(t, order1)
+
+	require.Equal(t, order.ID, order1.ID)
+	require.Equal(t, order.CustomerID, order1.CustomerID)
+	require.Equal(t, arg.Status, order1.Status)
+
+	require.WithinDuration(t, order.OrderTime, order1.OrderTime, time.Second)
+}

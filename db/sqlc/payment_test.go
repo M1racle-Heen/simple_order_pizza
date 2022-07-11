@@ -93,3 +93,26 @@ func TestListPayments(t *testing.T) {
 
 	}
 }
+
+func TestUpdatePayment(t *testing.T) {
+	customer := createRandomCustomer(t)
+	order := createRandomOrder(t, customer)
+	pizza := createRandomPizza(t, order)
+
+	payment1 := createRandomPayment(t, pizza, customer)
+
+	arg := UpdatePaymentStatusParams{
+		ID:            payment1.ID,
+		PaymentStatus: payment1.PaymentStatus,
+	}
+
+	payment2, err := testQueries.UpdatePaymentStatus(context.Background(), arg)
+	require.NoError(t, err)
+	require.NotEmpty(t, payment2)
+
+	require.Equal(t, payment1.ID, payment2.ID)
+	require.Equal(t, payment1.PizzaID, payment2.PizzaID)
+	require.Equal(t, payment1.CustomerID, payment2.CustomerID)
+	require.Equal(t, arg.PaymentStatus, payment2.PaymentStatus)
+	require.Equal(t, payment1.Bill, payment2.Bill)
+}
